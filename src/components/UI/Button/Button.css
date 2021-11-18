@@ -1,0 +1,66 @@
+.main-btn {
+  float: right;
+  margin-top: 30px;
+  display: inline-block;
+  transform: rotateY(0deg);
+  transition: 0.8s ease;
+}
+
+.main-btn:hover {
+  transform: rotateY(25deg);
+}
+
+.main-btn a,
+.main-btn button {
+  background: rgba(0, 0, 0, 0.55);
+  padding: 10px 30px;
+  color: #fff;
+  position: relative;
+  text-decoration: none;
+}
+
+.main-btn a:hover,
+.main-btn button:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.main-btn.notice-btn a:hover {
+  color: #000;
+}
+
+.right-btn {
+  float: right!important;
+}
+
+.left-btn {
+  float: left!important;
+}
+
+.about-btn {
+  float: left;
+}
+
+.notice-btn {
+  float: none;
+  margin-top: 20px;
+}
+
+.notice-btn a {
+  background: transparent;
+  color: #000;
+  border: 1px solid #32a88c;
+  border-radius: 30px;
+  padding: 6px 11px;
+  font-size: 14px;
+}
+
+@media(max-width: 575.98px) {
+  .right-btn {
+    float: none!important;
+  }
+  
+  .left-btn {
+    float: none!important;
+  }
+}

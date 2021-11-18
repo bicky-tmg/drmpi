@@ -1,0 +1,75 @@
+.short-prog {
+  overflow: hidden;
+  border: 5px solid #fff;
+}
+
+.short-prog-img {
+  position: relative;
+}
+
+.short-prog-img:hover .short-prog-wrap {
+  height: 100%;
+  width: 100%;
+  bottom: 0;
+}
+
+.short-prog-img img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+.short-prog-wrap {
+  background: linear-gradient(to bottom, #323ba8f2, #3b9fecc7);
+  padding: 20px 30px;
+  color: #fff;
+  height: 33%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  -webkit-transition: all 0.4s ease-out 0s;
+  -o-transition: all 0.4s ease-out 0s;
+  transition: all 0.4s ease-out 0s;
+}
+
+.short-prog-des h3 {
+  font-size: 30px;
+  font-weight: 600;
+  margin-top: 0px;
+}
+
+.short-prog-des p {
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #d0d8df;
+}
+
+@media (max-width: 991.98px) {
+  .short-prog-img img {
+    height: 300px;
+  }
+
+  .short-prog-des h3 {
+    font-size: 20px;
+  }
+
+  .short-prog-des p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .short-prog {
+    margin-bottom: 30px;
+  }
+
+  .short-prog-wrap {
+    height: 100%;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .short-prog {
+    margin-bottom: 0;
+  }
+}

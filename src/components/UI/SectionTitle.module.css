@@ -1,0 +1,20 @@
+.title {
+  text-align: center;
+}
+
+.title h2 {
+  font-size: 60px;
+  font-weight: 900;
+  margin: 0px;
+}
+
+.divider {
+  position: relative;
+  top: -24px;
+}
+
+@media (max-width: 767.98px) {
+  .title h2 {
+    font-size: 30px;
+  }
+}

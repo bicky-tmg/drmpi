@@ -1,0 +1,9 @@
+.Scholarship {
+    margin-bottom: 60px;
+}
+
+@media (max-width: 575.98px) {
+    .Scholarship {
+        margin-bottom: 30px;
+    }
+}

@@ -1,0 +1,14 @@
+.prog-content h4 {
+  font-size: 24px;
+  font-weight: 600;
+}
+@media (max-width: 575.98px) {
+  .prog-content {
+    text-align: center;
+  }
+}
+@media (max-width: 767.98px) {
+  .prog-content h4 {
+    font-size: 18px;
+  }
+}

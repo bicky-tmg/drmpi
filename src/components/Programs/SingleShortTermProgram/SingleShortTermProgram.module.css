@@ -1,0 +1,45 @@
+.Program {
+  padding: 0 0 60px;
+}
+
+.ProgramContent {
+  margin-top: 30px;
+}
+
+.ProgramContent h2 {
+  font-weight: 600;
+  -webkit-text-stroke: 1px;
+  margin-top: 20px;
+}
+
+.Image {
+  border: 0.2rem solid #f7f7f9;
+  position: relative;
+  overflow: hidden;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+}
+
+.Image img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+@media (max-width: 767.98px) {
+  .ProgramContent h2 {
+    font-size: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .Program {
+    padding: 0 0 30px;
+  }
+}

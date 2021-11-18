@@ -1,0 +1,66 @@
+.section-academic {
+  margin-bottom: 60px;
+}
+
+.prog-block {
+  background: #323ba8;
+  border-radius: 128px;
+  padding: 65px 0px 65px 69px;
+  color: #fff;
+}
+
+.custom-block {
+  background-color: #2699fb;
+  padding: 65px 65px 65px 0px;
+}
+
+.custom-block img {
+  margin-left: 15px;
+}
+
+.custom-block h4,
+.custom-block p {
+  text-align: right;
+}
+
+.custom-block .right-btn {
+  text-align: left;
+}
+
+@media (max-width: 767.98px) {
+  .prog-block {
+    padding: 45px 30px;
+    margin: 0px 5px;
+    border-radius: 15px;
+  }
+
+  .prog-block .main-btn {
+    float: none;
+  }
+
+  .prog-block .main-btn a {
+    padding: 8px 45px 8px 18px;
+  }
+}
+
+
+@media (max-width: 575.98px) {
+  .section-academic {
+    margin-bottom: 30px;
+  }
+
+  .custom-block h4,
+  .custom-block p {
+    text-align: center;
+  }
+
+  .prog-block {
+    border-radius: 0;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 991.98px) {
+  .prog-block {
+    margin-bottom: 30px;
+  }
+}

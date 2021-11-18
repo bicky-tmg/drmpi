@@ -1,0 +1,41 @@
+.Vacancy {
+  margin-bottom: 60px;
+}
+
+.Vacancy h2 {
+  font-weight: 600;
+  -webkit-text-stroke: 1px;
+  margin-bottom: 15px;
+}
+
+.VacancyInfoTags h5 {
+  font-size: 14px;
+  padding: 4px 12px;
+  background: #08c;
+  color: #fff;
+  margin-right: 15px;
+}
+
+.VacancyDesc h3 {
+  font-weight: 600;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 8px;
+  margin-bottom: 18px;
+}
+
+.VacancyDesc h3::after {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 30%;
+  height: 5px;
+  background-color: #3299a7;
+}
+
+@media (max-width: 575.98px) {
+  .Vacancy {
+    margin-bottom: 30px;
+  }
+}

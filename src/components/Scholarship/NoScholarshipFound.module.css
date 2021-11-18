@@ -1,0 +1,13 @@
+.noScholarship {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.noScholarship p {
+  color: #262c2c;
+  font-size: 3rem;
+  font-weight: bold;
+}

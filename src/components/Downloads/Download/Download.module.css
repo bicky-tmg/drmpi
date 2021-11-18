@@ -1,0 +1,9 @@
+.Download {
+    margin-bottom: 60px;
+}
+
+@media (max-width: 575.98px) {
+    .Download {
+        margin-bottom: 30px;
+    }
+}

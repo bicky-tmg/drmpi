@@ -1,0 +1,9 @@
+.Slider {
+    margin-bottom: 60px;
+}
+
+@media (max-width: 575.98px) {
+    .Slider {
+        margin-bottom: 30px;
+    }
+}

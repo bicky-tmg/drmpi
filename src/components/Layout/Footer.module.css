@@ -1,0 +1,138 @@
+.FooterInfo {
+  background-color: #323ba8;
+  padding: 60px 0;
+}
+
+.Logo {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  background: #fff;
+  padding: 5px;
+}
+
+.ContactList {
+  margin-top: 30px;
+  padding: 0;
+}
+
+.ContactItem {
+  list-style: none;
+  margin-bottom: 15px;
+  background: rgba(0, 0, 0, 0.38);
+  padding: 10px 13px;
+  color: #fff;
+  display: inline-block;
+}
+
+.ContactItem a,
+.ContactItem a:hover {
+  color: inherit;
+}
+
+.Icon {
+  margin-right: 10px;
+  border: 1px solid #ddd;
+  padding: 4px 6px;
+}
+
+.QuickLink h3,
+.ContactBox h3 {
+  font-size: 24px;
+  color: #fff;
+  font-weight: 600;
+  -webkit-text-stroke: 1px;
+  letter-spacing: 2px;
+  margin-bottom: 17px;
+}
+
+.QuickLink ul,
+.ContactBoxList {
+  padding: 0;
+}
+
+.QuickLink ul li,
+.ContactBoxItem {
+  list-style: none;
+  margin-bottom: 11px;
+  color: #fff;
+}
+
+.QuickLink ul li a,
+.QuickLink ul li a:hover,
+.ContactBoxItem a,
+.ContactBoxItem a:hover {
+  color: inherit;
+}
+
+.ContactBoxItem span {
+  margin-right: 10px;
+}
+
+.Media .MediaLink {
+  text-decoration: none;
+  word-break: break-all;
+  display: flex;
+  align-items: center;
+}
+
+.Media .MediaIcon {
+  width: 30px;
+  height: 30px;
+  background: #fff;
+  color: #3c48ef;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  z-index: 1;
+  margin: 0;
+}
+
+.Media .MediaName {
+  font-size: 14px;
+  background: rgba(0, 0, 0, 0.38);
+  padding: 5px 32px;
+  position: relative;
+  left: -18px;
+  border-radius: 20px;
+  margin: 0;
+}
+
+.FooterBox,
+.QuickLink,
+.ContactBox {
+  display: flex;
+  justify-content: center;
+}
+
+.FooterCopyRight {
+    background-color: #2699FB;
+    font-size: 14px;
+    color: #fff;
+}
+
+@media (max-width: 767.98px) {
+  .FooterBox,
+  .QuickLink,
+  .ContactBox {
+    text-align: center;
+  }
+
+  .QuickLink {
+    margin-bottom: 15px;
+  }
+
+  .ContactItem {
+    margin-right: 11px;
+  }
+
+  .ContactBoxItem {
+    margin-bottom: 17px;
+  }
+
+  .Media .MediaLink {
+    justify-content: center;
+  }
+}

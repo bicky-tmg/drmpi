@@ -1,0 +1,48 @@
+.CareerBox {
+  padding: 48px 32px 32px 32px;
+  border: 1px solid #ddd;
+  border-radius: 0px 0px 0px 0px;
+  transition: 0.3s ease;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.CareerBox:hover {
+  transform: translateY(-10px);
+}
+
+.CareerBody h4 {
+  color: #333333;
+  font-size: 23px;
+  font-weight: 600;
+}
+
+.CareerBody p {
+  color: #505050;
+}
+
+.AdvertNum {
+  position: absolute;
+  line-height: 1;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  background-color: #4ad0ff;
+  letter-spacing: 0.5px;
+  color: #fff;
+  font-size: 13px;
+}
+
+.AdvertNum span {
+  font-weight: 600;
+}
+
+@media (max-width: 991.98px) {
+  .CareerBox {
+    padding: 48px 15px 15px;
+  }
+  
+  .CareerBody h4 {
+    margin-top: 15px;
+  }
+}
