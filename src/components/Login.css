@@ -1,0 +1,72 @@
+.login-form {
+  background-color: #f7f9fb;
+  font-size: 14px;
+  height: 100vh;
+}
+
+.login-form .brand {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin: 40px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  position: relative;
+  z-index: 1;
+}
+
+.login-logo {
+  width: 100%;
+}
+
+.login-form .card-wrapper {
+  width: 400px;
+}
+
+.login-form .card {
+  border-color: transparent;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.login-form .card.fat {
+  padding: 10px;
+}
+
+.login-form .card .card-title {
+  margin-bottom: 30px;
+}
+
+.login-form .form-control {
+  border-width: 2.3px;
+}
+
+.login-form .form-group label {
+  width: 100%;
+}
+
+.login-form .btn.btn-block {
+  padding: 12px 10px;
+}
+
+.login-form .footer {
+  margin: 40px 0;
+  color: #888;
+  text-align: center;
+}
+
+@media screen and (max-width: 425px) {
+  .login-form .card-wrapper {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .login-form .card.fat {
+    padding: 0;
+  }
+
+  .login-form .card.fat .card-body {
+    padding: 15px;
+  }
+}

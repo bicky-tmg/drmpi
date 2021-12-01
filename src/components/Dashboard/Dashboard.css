@@ -1,0 +1,8 @@
+.dashboard {
+  display: flex;
+  background-color: #fafbfe;
+}
+
+main {
+  flex: 4;
+}
