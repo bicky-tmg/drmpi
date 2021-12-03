@@ -21,7 +21,10 @@ export const api = createApi({
       }),
     }),
     getNotice: builder.query({
-      query: () => `/api/v1/Notice/GetNoticeList`,
+      query: () => `Notice/GetNoticeList`,
+    }),
+    getNoticeById: builder.query({
+      query: (id) => `Notice/GetNoticeById/${id}`,
     }),
     addNotice: builder.mutation({
       query: (noticeData) => ({
@@ -30,7 +33,20 @@ export const api = createApi({
         body: noticeData,
       }),
     }),
+    updateNotice: builder.mutation({
+      query: ({id, noticeData}) => ({
+        url: `Notice/UpdateNotice/${id}`,
+        method: "PUT",
+        body: noticeData,
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useGetNoticeQuery, useAddNoticeMutation } = api;
+export const {
+  useLoginMutation,
+  useGetNoticeQuery,
+  useGetNoticeByIdQuery,
+  useAddNoticeMutation,
+  useUpdateNoticeMutation,
+} = api;

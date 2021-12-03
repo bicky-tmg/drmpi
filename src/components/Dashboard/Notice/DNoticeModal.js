@@ -1,6 +1,7 @@
 import { Button, Modal } from "react-bootstrap";
 import styled from "styled-components";
-import DatePicker from "react-datepicker";
+// import DatePicker from "react-datepicker";
+import DNoticeForm from "./DNoticeForm";
 
 const { Header, Title, Body, Footer } = Modal;
 
@@ -17,14 +18,16 @@ const DNoticeModal = ({
   show,
   handleClose,
   actionMode,
-  title,
-  setTitle,
-  location,
-  setLocation,
-  startDate,
-  setStartDate,
-  setSelectedFiles,
-  handleAddEditNotice,
+  rowId,
+  notice,
+  // title,
+  // setTitle,
+  // location,
+  // setLocation,
+  // startDate,
+  // setStartDate,
+  // setSelectedFiles,
+  // handleAddEditNotice,
 }) => {
   return (
     <CustomModal show={show} onHide={handleClose} size="lg">
@@ -32,7 +35,7 @@ const DNoticeModal = ({
         <Title>{actionMode === "add" ? "Add" : "Edit"} Notice</Title>
       </Header>
       <Body>
-        <form>
+        {/* <form>
           <div className="form-group">
             <label htmlFor="title" className="font-weight-bold">
               Title
@@ -85,13 +88,14 @@ const DNoticeModal = ({
               onChange={(event) => console.log(event.target.files)}
             />
           </div>
-        </form>
+        </form> */}
+        <DNoticeForm actionMode={actionMode} rowId={rowId} notice={notice} />
       </Body>
-      <Footer>
+      {/* <Footer>
         <Button variant="primary" onClick={handleAddEditNotice}>
           Add Notice
         </Button>
-      </Footer>
+      </Footer> */}
     </CustomModal>
   );
 };

@@ -118,7 +118,7 @@ const Login = () => {
                   </div>
 
                   <div className="form-group m-0">
-                    <button className="btn btn-primary btn-block">
+                    <button className="btn btn-primary btn-block d-flex align-items-center">
                       {isLoading && (
                         <Spinner
                           as="span"
