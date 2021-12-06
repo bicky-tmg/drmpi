@@ -17,12 +17,15 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./index.css";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
+import MessageProvider from "./components/UI/Messages/MessageProvider";
 
 ReactDOM.render(
   <BrowserRouter>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <MessageProvider>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </MessageProvider>
   </BrowserRouter>,
   document.getElementById("root")
 );

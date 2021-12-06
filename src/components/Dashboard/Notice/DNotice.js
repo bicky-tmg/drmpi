@@ -8,7 +8,6 @@ import DNoticeModal from "./DNoticeModal";
 import PageTitle from "../PageTitle";
 import { useEffect, useState } from "react";
 import { useGetNoticeByIdQuery } from "../../../app/services/auth";
-// import { useAddNoticeMutation } from "../../../app/services/auth";
 
 const { Header, Body, Footer } = Card;
 
@@ -31,7 +30,6 @@ const DNotice = () => {
     setShow(true);
   };
   const handleClose = () => {
-    setRowId("");
     setShow(false);
   };
 
@@ -41,58 +39,6 @@ const DNotice = () => {
   useEffect(() => {
     actionMode === "edit" ? setSkip(false) : setSkip(true);
   }, [actionMode]);
-
-  // if (!isUninitialized && isSingleNoticeLoading) {
-  //   return (
-  //     <div className="loading">
-  //       <LoadingSpinner />
-  //     </div>
-  //   );
-  // }
-
-  // const [title, setTitle] = useState("");
-  // const [location, setLocation] = useState("");
-  // const [startDate, setStartDate] = useState(new Date());
-  // const [selectedFiles, setSelectedFiles] = useState(null);
-
-  // const [addNotice, { isLoading }] = useAddNoticeMutation();
-
-  // const canSave = [title, location, startDate].every(Boolean) && !isLoading;
-
-  // const handleAddNotice = async (formData) => {
-  //   if (canSave) {
-  //     try {
-  //       await addNotice(formData).unwrap();
-  //       setTitle("");
-  //       setLocation("");
-  //       setStartDate(new Date());
-  //       setSelectedFiles(null);
-  //     } catch (err) {
-  //       console.error("Failed to save the post: ", err);
-  //     }
-  //   for (var value of formData.values()) {
-  //     console.log(value);
-  //   }
-
-  //   for (var key of formData.keys()) {
-  //     console.log(key);
-  //  }
-  //   }
-  // };
-
-  // const handleAddEditNotice = () => {
-  //   if (title !== "" && location !== "" && selectedFiles !== null) {
-  //     if (actionMode === "add") {
-  //       const formData = new FormData();
-  //       formData.append("title", title);
-  //       formData.append("location", location);
-  //       formData.append("date", startDate.toJSON());
-  //       formData.append("files", selectedFiles);
-  //       handleAddNotice(formData);
-  //     } else if (actionMode === "edit") {
-  //     }
-  //   }
-  // };
 
   return (
     <>
@@ -107,7 +53,7 @@ const DNotice = () => {
             <Col>
               <CustomCard>
                 <Header className="bg-primary text-white">Notice List</Header>
-                <Body className="pt-0 pb-0">
+                <Body className="pt-0 pb-0 position-relative">
                   <DNoticeList handleShow={handleShow} setRowId={setRowId} />
                 </Body>
                 <Footer className="clearfix">
@@ -130,14 +76,6 @@ const DNotice = () => {
         actionMode={actionMode}
         rowId={rowId}
         notice={notice}
-        // title={title}
-        // setTitle={setTitle}
-        // location={location}
-        // setLocation={setLocation}
-        // startDate={startDate}
-        // setStartDate={setStartDate}
-        // setSelectedFiles={setSelectedFiles}
-        // handleAddEditNotice={handleAddEditNotice}
       />
     </>
   );

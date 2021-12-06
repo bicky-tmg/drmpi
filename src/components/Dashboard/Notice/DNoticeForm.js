@@ -1,133 +1,197 @@
-import React from "react";
-import { Formik } from "formik";
+import React, { useEffect } from "react";
+import { Form, Formik, useField, useFormikContext } from "formik";
 import * as Yup from "yup";
-import { Button, Col, Row, Form, Spinner } from "react-bootstrap";
+import { Button, Col, Row, Form as RBForm, Spinner } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import {
   useAddNoticeMutation,
   useUpdateNoticeMutation,
 } from "../../../app/services/auth";
+import { useMessage } from "../../UI/Messages/MessageProvider";
 
 const schema = Yup.object({
   title: Yup.string().required("Required"),
   location: Yup.string().required("Required"),
 });
 
+const TextField = ({ label, ...props }) => {
+  const [field, meta] = useField(props);
+  return (
+    <RBForm.Group controlId={props.name || props.id}>
+      <RBForm.Label>{label}</RBForm.Label>
+      <RBForm.Control
+        {...field}
+        {...props}
+        isInvalid={Boolean(meta.touched && meta.error)}
+      />
+      <RBForm.Control.Feedback type="invalid">
+        {meta.error}
+      </RBForm.Control.Feedback>
+    </RBForm.Group>
+  );
+};
+
+const PickDate = ({ label, ...props }) => {
+  const [field] = useField(props);
+  const { setFieldValue } = useFormikContext();
+  return (
+    <Row>
+      <RBForm.Group as={Col} md="4" controlId={props.name || props.id}>
+        <RBForm.Label>{label}</RBForm.Label>
+        <DatePicker
+          {...field}
+          {...props}
+          selected={field.value}
+          onChange={(date) =>
+            setFieldValue(`${props.name || props.id}`, date, false)
+          }
+        />
+      </RBForm.Group>
+    </Row>
+  );
+};
+
+const FileUpload = ({ label, ...props }) => {
+  const { setFieldValue } = useFormikContext();
+  return (
+    <Row>
+      <RBForm.Group as={Col} md="4" controlId={props.name || props.id}>
+        <RBForm.Label>{label}</RBForm.Label>
+        <RBForm.Control
+          {...props}
+          onChange={(event) =>
+            setFieldValue(
+              `${props.name || props.id}`,
+              event.target.files,
+              false
+            )
+          }
+        />
+      </RBForm.Group>
+    </Row>
+  );
+};
+
 const DNoticeForm = ({ actionMode, notice, rowId }) => {
-  const [addNotice, { isLoading }] = useAddNoticeMutation();
-  const [updateNotice, { isLoading: isUpdating }] = useUpdateNoticeMutation();
+  const [
+    addNotice,
+    {
+      isLoading,
+      isSuccess: isAddNoticeSuccess,
+      isError: isAddNoticeError,
+    },
+  ] = useAddNoticeMutation();
+  const [
+    updateNotice,
+    {
+      isLoading: isUpdating,
+      isSuccess: isUpdateNoticeSuccess,
+      isError: isUpdateNoticeError,
+    },
+  ] = useUpdateNoticeMutation();
+  const { addMessage } = useMessage();
+
+  useEffect(() => {
+    if (isAddNoticeSuccess) {
+      addMessage("Success", "Notice added successfully");
+    }
+
+    if (isUpdateNoticeSuccess) {
+      addMessage("Success", "Notice updated successfully");
+    }
+
+    if (isAddNoticeError)
+      addMessage(
+        "Error",
+        `Failed to save Notice`,
+        "bg-danger"
+      );
+
+    if (isUpdateNoticeError)
+      addMessage(
+        "Error",
+        `Failed to update Notice`,
+        "bg-danger"
+      );
+  }, [
+    isAddNoticeSuccess,
+    isUpdateNoticeSuccess,
+    isAddNoticeError,
+    isUpdateNoticeError,
+    addMessage,
+  ]);
+
+  let editTitle, editLocation, editDate;
+  if (actionMode === "edit") {
+    editTitle = notice?.title;
+    editLocation = notice?.location;
+    editDate = notice?.date;
+  }
 
   return (
     <Formik
       initialValues={{
-        title: "",
-        location: "",
-        date: new Date(),
-        files: null,
+        title: editTitle ? editTitle : "",
+        location: editLocation ? editLocation : "",
+        date: editDate ? new Date(editDate) : new Date(),
+        files: undefined,
       }}
       validationSchema={schema}
-      onSubmit={async (values, { resetForm }) => {
+      onSubmit={(values, { resetForm }) => {
         let formData = new FormData();
-        formData.append("title", values.title);
-        formData.append("location", values.location);
-        formData.append("date", values.date.toJSON());
+        formData.append("Title", values.title);
+        formData.append("Location", values.location);
+        formData.append("Date", values.date.toJSON());
         if (values.files && values.files.length > 0) {
           for (let i = 0; i <= values.files.length; i++) {
-            formData.append("files", values.files[i]);
+            formData.append("Files", values.files[i]);
           }
         }
-        try {
-          if (actionMode === "add") {
-            await addNotice(formData).unwrap();
-            resetForm({
-              values: {
-                title: "",
-                location: "",
-                date: new Date(),
-                files: null,
-              },
-            });
-          } else {
-            console.log(formData, rowId);
-            await updateNotice({ rowId, formData }).unwrap();
-          }
-        } catch (err) {
-          console.error("Failed to save the post: ", err);
+
+        if (actionMode === "add") {
+          addNotice(formData);
+          // console.log(formData);
+          resetForm({
+            values: {
+              title: "",
+              location: "",
+              date: new Date(),
+              files: undefined,
+            },
+          });
+        } else {
+          // console.log(values);
+          // for (var value of formData.values()) {
+          //   console.log(value);
+          // }
+          updateNotice({ rowId, formData });
         }
       }}
       enableReinitialize
     >
-      {(formik) => (
-        <Form noValidate onSubmit={formik.handleSubmit}>
-          <Form.Group controlId="title">
-            <Form.Label>Title</Form.Label>
-            <Form.Control
-              type="text"
-              name="title"
-              value={formik.values.title}
-              onChange={formik.handleChange}
-              isInvalid={!!formik.touched.title && !!formik.errors.title}
+      <Form>
+        <TextField name="title" type="text" label="Title" />
+        <TextField name="location" type="text" label="Location" />
+        <PickDate name="date" className="form-control" label="Date" />
+        <FileUpload type="file" name="files" label="Upload Files" multiple />
+        <Button
+          type="submit"
+          disabled={!!isLoading || !!isUpdating}
+          className="d-flex align-items-center float-right mt-3"
+        >
+          {(isLoading || isUpdating) && (
+            <Spinner
+              as="span"
+              animation="border"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+              className="mr-3"
             />
-            <Form.Control.Feedback type="invalid">
-              {formik.errors.title}
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group controlId="location">
-            <Form.Label>Location</Form.Label>
-            <Form.Control
-              type="text"
-              name="location"
-              value={formik.values.location}
-              onChange={formik.handleChange}
-              isInvalid={!!formik.touched.location && !!formik.errors.location}
-            />
-            <Form.Control.Feedback type="invalid">
-              {formik.errors.location}
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Row>
-            <Form.Group as={Col} md="4" controlId="date">
-              <Form.Label>Date</Form.Label>
-              <DatePicker
-                name="date"
-                className="form-control"
-                selected={formik.values.date}
-                onChange={(date) => formik.setFieldValue("date", date, false)}
-              />
-            </Form.Group>
-          </Row>
-          <Row>
-            <Form.Group as={Col} md="4" controlId="fileInput">
-              <Form.Label>Files</Form.Label>
-              <Form.Control
-                type="file"
-                name="files"
-                multiple
-                onChange={(event) =>
-                  formik.setFieldValue("files", event.target.files, false)
-                }
-              />
-            </Form.Group>
-          </Row>
-          <Button
-            type="submit"
-            disabled={!!isLoading || !!isUpdating}
-            className="d-flex align-items-center float-right mt-3"
-          >
-            {(isLoading || isUpdating) && (
-              <Spinner
-                as="span"
-                animation="border"
-                size="sm"
-                role="status"
-                aria-hidden="true"
-                className="mr-3"
-              />
-            )}
-            {actionMode === "add" ? "Add" : "Edit"} Notice
-          </Button>
-        </Form>
-      )}
+          )}
+          {actionMode === "add" ? "Add" : "Edit"} Notice
+        </Button>
+      </Form>
     </Formik>
   );
 };

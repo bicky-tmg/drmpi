@@ -1,6 +1,7 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { Button, ButtonGroup, Spinner } from "react-bootstrap";
 import { useGetNoticeQuery } from "../../../app/services/auth";
+import ConfirmDeleteModal from "../../UI/Modal/ConfirmDeleteModal";
 import DataTable from "../DataTableBase/DataTableBase";
 
 const customStyles = {
@@ -17,8 +18,11 @@ const PublishedDate = ({ row }) => {
   return <div>{date}</div>;
 };
 
-const DNoticeList = ({handleShow, setRowId}) => {
-  const { data, isLoading } = useGetNoticeQuery();
+const DNoticeList = ({ handleShow, setRowId }) => {
+  const [show, setShow] = useState(false);
+  const handleDeleteClose = () => setShow(false);
+  const [deleteRowId, setDeleteRowId] = useState("");
+  const { data, isLoading, isFetching } = useGetNoticeQuery();
 
   const columns = useMemo(
     () => [
@@ -43,10 +47,14 @@ const DNoticeList = ({handleShow, setRowId}) => {
         name: "Actions",
         cell: (row) => (
           <ButtonGroup aria-label="Basic example">
-            <Button variant="primary" size="sm" onClick={() => {
-              setRowId(row.id);
-              handleShow("edit")
-              }}>
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={() => {
+                setRowId(row.id);
+                handleShow("edit");
+              }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -62,7 +70,14 @@ const DNoticeList = ({handleShow, setRowId}) => {
                 />
               </svg>
             </Button>
-            <Button variant="danger" size="sm">
+            <Button
+              variant="danger"
+              size="sm"
+              onClick={() => {
+                setDeleteRowId(row.id);
+                setShow(true);
+              }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -85,23 +100,27 @@ const DNoticeList = ({handleShow, setRowId}) => {
     [handleShow, setRowId]
   );
   return (
-    <DataTable
-      columns={columns}
-      customStyles={customStyles}
-      progressPending={isLoading}
-      progressComponent={
-        <Spinner
-          animation="grow"
-          role="status"
-          aria-hidden="true"
-          className="my-4"
-          variant="secondary"
-        />
-      }
-      data={data}
-      paginationPerPage={5}
-      paginationRowsPerPageOptions={[5, 10, 15, 20, 25, 30]}
-    />
+    <>
+      <div className={isFetching ? "loading" : null}></div>
+      <DataTable
+        columns={columns}
+        customStyles={customStyles}
+        progressPending={isLoading}
+        progressComponent={
+          <Spinner
+            animation="grow"
+            role="status"
+            aria-hidden="true"
+            className="my-4"
+            variant="secondary"
+          />
+        }
+        data={data}
+        paginationPerPage={5}
+        paginationRowsPerPageOptions={[5, 10, 15, 20, 25, 30]}
+      />
+      <ConfirmDeleteModal show={show} handleClose={handleDeleteClose} id={deleteRowId} />
+    </>
   );
 };
 

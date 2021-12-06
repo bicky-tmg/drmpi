@@ -2,7 +2,7 @@ import { Container, Row, Col, Image } from "react-bootstrap";
 
 import SectionTitle from "../UI/SectionTitle";
 
-import classes from "./Message.module.css";
+import classes from "./WelcomeMessage.module.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay } from "swiper";
 import useHttp from "../../hooks/use-http";
@@ -12,7 +12,7 @@ import LoadingSpinner from "../UI/Spinner/LoadingSpinner";
 
 SwiperCore.use([Autoplay]);
 
-const Message = () => {
+const WelcomeMessage = () => {
   const {
     sendRequest,
     status,
@@ -79,4 +79,4 @@ const Message = () => {
   );
 };
 
-export default Message;
+export default WelcomeMessage;
