@@ -37,9 +37,9 @@ const Sidebar = () => {
             <li className="sidebarListItem">
               <FontAwesomeIcon className="sidebarIcon" icon={faFileDownload} /> Download
             </li>
-            <li className="sidebarListItem">
+            <NavLink to="/drmpi-admin/slider" className="sidebarListItem" activeClassName="active">
               <FontAwesomeIcon className="sidebarIcon" icon={faSlidersH} /> Slider
-            </li>
+            </NavLink>
           </ul>
         </div>
       </div>

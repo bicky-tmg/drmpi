@@ -7,7 +7,7 @@ const PageTitle = ({pageName}) => {
       <div className="page-title-right">
         <ol className="breadcrumb m-0">
           <li className="breadcrumb-item">
-            <Link to="/drmpi-admin">Home</Link>
+            <Link to="/drmpi-admin">Dashboard</Link>
           </li>
           <li className="breadcrumb-item active">{pageName}</li>
         </ol>

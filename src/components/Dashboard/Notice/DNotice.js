@@ -11,7 +11,7 @@ import { useGetNoticeByIdQuery } from "../../../app/services/auth";
 
 const { Header, Body, Footer } = Card;
 
-const CustomCard = styled(Card)`
+export const CustomCard = styled(Card)`
   border-color: transparent;
   box-shadow: 0 4px 8px rgb(0 0 0 / 5%);
 
@@ -42,7 +42,7 @@ const DNotice = () => {
 
   return (
     <>
-      <section className="dnotice">
+      <section className="dashboard-wrapper">
         <Container fluid>
           <Row>
             <Col>

@@ -18,6 +18,7 @@ import { useSelector } from "react-redux";
 import Dashboard from "./components/Dashboard/Dashboard";
 import DNotice from "./components/Dashboard/Notice/DNotice";
 import Course from "./components/Dashboard/Course/Course";
+import MainCarousel from "./components/Dashboard/HomePage/MainCarousel/MainCarousel";
 
 function App() {
   const { isLoggedIn } = useSelector((state) => state.auth);
@@ -40,6 +41,10 @@ function App() {
             </Route>
             <Route path="/drmpi-admin/courses" exact>
               {isLoggedIn && <Course />}
+              {!isLoggedIn && <Redirect to="/Identity/Account/login" />}
+            </Route>
+            <Route path="/drmpi-admin/slider" exact>
+              {isLoggedIn && <MainCarousel />}
               {!isLoggedIn && <Redirect to="/Identity/Account/login" />}
             </Route>
           </Switch>

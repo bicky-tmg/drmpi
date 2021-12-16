@@ -26,7 +26,7 @@ const Messages = ({ messages }) => {
           <Toast
             show={!!msg.id}
             onClose={() => removeMessage(msg.id)}
-            delay={5000 + msg.id * 500}
+            delay={15000 + msg.id * 500}
             autohide
             key={msg.id}
             className={msg.variant ? msg.variant.toLowerCase() : ""}
@@ -34,7 +34,10 @@ const Messages = ({ messages }) => {
             <Header>
               <strong className="mr-auto">{msg.header}</strong>
             </Header>
-            <Body className={msg.variant ? "text-white" : "text-dark"}>
+            <Body
+              className={msg.variant ? "text-white" : "text-dark"}
+              style={{ fontSize: "13px"}}
+            >
               {msg.content}
             </Body>
           </Toast>

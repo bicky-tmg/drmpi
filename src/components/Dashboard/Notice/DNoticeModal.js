@@ -4,7 +4,7 @@ import DNoticeForm from "./DNoticeForm";
 
 const { Header, Title, Body } = Modal;
 
-const CustomModal = styled(Modal)`
+export const CustomModal = styled(Modal)`
   .modal-header {
     border-bottom: 1px solid transparent;
   }

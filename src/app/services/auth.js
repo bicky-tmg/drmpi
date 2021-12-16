@@ -22,7 +22,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 
 export const api = createApi({
   baseQuery: baseQueryWithReauth,
-  tagTypes: ["Notice"],
+  tagTypes: ["Notice", "Carousel"],
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (credentails) => ({
@@ -70,6 +70,28 @@ export const api = createApi({
       }),
       invalidatesTags: (result, error, id) => [{ type: "Notice", id }],
     }),
+    getMainCarousel: builder.query({
+      query: () => `Home/GetMainContent_UI`,
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: "Carousel", id })),
+              { type: "Carousel", id: "LIST" },
+            ]
+          : [{ type: "Carousel", id: "LIST" }],
+    }),
+    getMainCarouselById: builder.query({
+      query: (id) => `Home/GetMainContentById/${id}`,
+      providesTags: (result, error, id) => [{ type: "Carousel", id }],
+    }),
+    addMainCarousel: builder.mutation({
+      query: (body) => ({
+        url: "Home/CreateMainContent",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: [{ type: "Carousel", id: "LIST" }],
+    }),
   }),
 });
 
@@ -80,4 +102,7 @@ export const {
   useAddNoticeMutation,
   useUpdateNoticeMutation,
   useDeleteNoticeMutation,
+  useGetMainCarouselQuery,
+  useGetMainCarouselByIdQuery,
+  useAddMainCarouselMutation,
 } = api;

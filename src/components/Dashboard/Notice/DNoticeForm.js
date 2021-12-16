@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
-import { Form, Formik, useField, useFormikContext } from "formik";
+import { Form, Formik } from "formik";
 import * as Yup from "yup";
-import { Button, Col, Row, Form as RBForm, Spinner } from "react-bootstrap";
-import DatePicker from "react-datepicker";
+import { Button, Spinner } from "react-bootstrap";
 import {
   useAddNoticeMutation,
   useUpdateNoticeMutation,
 } from "../../../app/services/auth";
+import { TextField } from "../../UI/Form/TextField";
+import { PickDate } from "../../UI/Form/PickDate";
+import { FileUpload } from "../../UI/Form/FileUpload";
 import { useMessage } from "../../UI/Messages/MessageProvider";
 
 const schema = Yup.object({
@@ -14,70 +16,13 @@ const schema = Yup.object({
   location: Yup.string().required("Required"),
 });
 
-const TextField = ({ label, ...props }) => {
-  const [field, meta] = useField(props);
-  return (
-    <RBForm.Group controlId={props.name || props.id}>
-      <RBForm.Label>{label}</RBForm.Label>
-      <RBForm.Control
-        {...field}
-        {...props}
-        isInvalid={Boolean(meta.touched && meta.error)}
-      />
-      <RBForm.Control.Feedback type="invalid">
-        {meta.error}
-      </RBForm.Control.Feedback>
-    </RBForm.Group>
-  );
-};
-
-const PickDate = ({ label, ...props }) => {
-  const [field] = useField(props);
-  const { setFieldValue } = useFormikContext();
-  return (
-    <Row>
-      <RBForm.Group as={Col} md="4" controlId={props.name || props.id}>
-        <RBForm.Label>{label}</RBForm.Label>
-        <DatePicker
-          {...field}
-          {...props}
-          selected={field.value}
-          onChange={(date) =>
-            setFieldValue(`${props.name || props.id}`, date, false)
-          }
-        />
-      </RBForm.Group>
-    </Row>
-  );
-};
-
-const FileUpload = ({ label, ...props }) => {
-  const { setFieldValue } = useFormikContext();
-  return (
-    <Row>
-      <RBForm.Group as={Col} md="4" controlId={props.name || props.id}>
-        <RBForm.Label>{label}</RBForm.Label>
-        <RBForm.Control
-          {...props}
-          onChange={(event) =>
-            setFieldValue(
-              `${props.name || props.id}`,
-              event.target.files,
-              false
-            )
-          }
-        />
-      </RBForm.Group>
-    </Row>
-  );
-};
-
 const DNoticeForm = ({ actionMode, notice, rowId }) => {
   const [
     addNotice,
     {
       isLoading,
       isSuccess: isAddNoticeSuccess,
+      error: addNoticeError,
       isError: isAddNoticeError,
     },
   ] = useAddNoticeMutation();
@@ -86,6 +31,7 @@ const DNoticeForm = ({ actionMode, notice, rowId }) => {
     {
       isLoading: isUpdating,
       isSuccess: isUpdateNoticeSuccess,
+      error: updateNoticeError,
       isError: isUpdateNoticeError,
     },
   ] = useUpdateNoticeMutation();
@@ -103,14 +49,14 @@ const DNoticeForm = ({ actionMode, notice, rowId }) => {
     if (isAddNoticeError)
       addMessage(
         "Error",
-        `Failed to save Notice`,
+        `Failed to save Notice : ${addNoticeError.data.title}`,
         "bg-danger"
       );
 
     if (isUpdateNoticeError)
       addMessage(
         "Error",
-        `Failed to update Notice`,
+        `Failed to update Notice : ${updateNoticeError.data.title}`,
         "bg-danger"
       );
   }, [
@@ -118,6 +64,8 @@ const DNoticeForm = ({ actionMode, notice, rowId }) => {
     isUpdateNoticeSuccess,
     isAddNoticeError,
     isUpdateNoticeError,
+    addNoticeError,
+    updateNoticeError,
     addMessage,
   ]);
 
